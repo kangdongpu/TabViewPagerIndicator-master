@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="TabPagerIndicatorLayout">
+        //未选中的TabTitle字体大小
+        <attr name="mTabTitleSize" format="dimension" />
+        //选中的TabTitle字体大小
+        <attr name="mTabTitleSelectedSize" format="dimension" />
+        //未选中的TabTitle字体颜色
+        <attr name="mTabTitleColor" format="color|integer" />
+        //选中的TabTitle字体颜色
+        <attr name="mTabTitleSelectedColor" format="color|integer" />
+        //相邻TabTilte之间的间距大小
+        <attr name="mTabSpace" format="dimension" />
+        //下划线指示器的高度
+        <attr name="mIndicatorHeight" format="dimension" />
+        //下划线指示器的颜色
+        <attr name="mIndicatorColor" format="color|integer" />
+    </declare-styleable>
+
+</resources>
