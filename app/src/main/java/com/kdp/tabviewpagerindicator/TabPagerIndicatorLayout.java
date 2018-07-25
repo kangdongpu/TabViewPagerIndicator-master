@@ -131,7 +131,7 @@ public class TabPagerIndicatorLayout extends HorizontalScrollView {
     }
 
     /**
-     * 测量TabTitle的宽
+     * 测量文本的宽
      *
      * @param title
      * @return
