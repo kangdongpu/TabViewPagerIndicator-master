@@ -42,7 +42,7 @@ public class TabPagerIndicatorLayout extends HorizontalScrollView {
     //默认TabTitle字体大小
     private final float mDefaultTabTitleSize = 14;
     //默认选中的TabTitle字体大小
-    private final float mDefaultSelectedTabTitleSize = 16;
+    private final float mDefaultSelectedTabTitleSize = 14;
     //默认未选中TabTitle的字体颜色
     private final int mDefaultTabTitleColor = 0xFF000000;
     //默认选中TabTitle的字体颜色
