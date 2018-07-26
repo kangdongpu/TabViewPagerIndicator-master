@@ -128,6 +128,8 @@ public class TabPagerIndicatorLayout extends HorizontalScrollView {
             setTabOnClickListener(i, textView);
             mTabContainer.addView(textView, lp);
         }
+        //默认选中第一个
+        updateSelectTabTitle(mCurrentPosition);
     }
 
     /**
@@ -203,7 +205,8 @@ public class TabPagerIndicatorLayout extends HorizontalScrollView {
 
             @Override
             public void onPageSelected(int position) {
-                updateTabTitle(position);
+                updateCurrentTabTitle();
+                updateSelectTabTitle(position);
                 mCurrentPosition = position;
             }
 
@@ -214,16 +217,25 @@ public class TabPagerIndicatorLayout extends HorizontalScrollView {
     }
 
     /**
-     * 更新TabTitle
+     * 更新当前TabTitle
      */
-    private void updateTabTitle(int position) {
+    private void updateCurrentTabTitle() {
         TextView mLastTabTitleView = (TextView) mTabContainer.getChildAt(mCurrentPosition);
         mLastTabTitleView.setTextColor(mTabTitleColor);
         mLastTabTitleView.animate().scaleX(1.0f).scaleY(1.0f).setDuration(150).start();
 
+
+    }
+
+    /**
+     * 更新选中TabTitle
+     *
+     * @param position
+     */
+    private void updateSelectTabTitle(int position) {
         TextView mCurrentTabTitleView = (TextView) mTabContainer.getChildAt(position);
         mCurrentTabTitleView.setTextColor(mTabTitleSelectedColor);
-        mCurrentTabTitleView.animate().scaleX(Math.max(mTabTitleSize,mTabTitleSelectedSize) * 1.0f / Math.min(mTabTitleSize,mTabTitleSelectedSize)).scaleY(mTabTitleSelectedSize * 1.0f / mTabTitleSize).setDuration(150).start();
+        mCurrentTabTitleView.animate().scaleX(Math.max(mTabTitleSize, mTabTitleSelectedSize) * 1.0f / Math.min(mTabTitleSize, mTabTitleSelectedSize)).scaleY(mTabTitleSelectedSize * 1.0f / mTabTitleSize).setDuration(150).start();
     }
 
     //滚动到指定Tab
@@ -232,29 +244,37 @@ public class TabPagerIndicatorLayout extends HorizontalScrollView {
         if (positionOffset <= 0) return;
         View mCurrentTab = mTabContainer.getChildAt(position);
         View mNextTab = mTabContainer.getChildAt(position + 1);
-
-        if ((mNextTab.getLeft() + mNextTab.getWidth() / 2) < getWidth() / 2) {
-            //滚动容器
+        //滚动指示器
+        mIndicatorStartX = mCurrentTab.getLeft() + mCurrentTab.getWidth() * positionOffset;
+        mIndicatorEndX = mCurrentTab.getRight() + mNextTab.getWidth() * positionOffset;
+        invalidate();
+        if (checkmTabTitleOffsetCenter(mNextTab)) {
+            //滚动容器到最左侧
             if (getScrollX() != 0)
                 this.scrollTo(0, 0);
-            //滚动指示器
-            mIndicatorStartX = mCurrentTab.getLeft() + mCurrentTab.getWidth() * positionOffset;
-            mIndicatorEndX = mCurrentTab.getRight() + mNextTab.getWidth() * positionOffset;
-            invalidate();
         } else {
-            //滚动指示器到中间位置
-            mIndicatorStartX = mCurrentTab.getLeft() + mCurrentTab.getWidth() * positionOffset;
-            mIndicatorEndX = mCurrentTab.getRight() + mNextTab.getWidth() * positionOffset;
-            invalidate();
-            //当前容器偏移量
-            int mScrollX = mCurrentTab.getLeft() - ((getWidth() / 2) - (mCurrentTab.getWidth() / 2));
-            //下一个tab的偏移量
+            int mScrollX = 0;
+            if (!checkmTabTitleOffsetCenter(mCurrentTab)) {
+                //当前TabTitle容器的总偏移量
+                mScrollX = mCurrentTab.getLeft() - ((getWidth() / 2) - (mCurrentTab.getWidth() / 2));
+            }
+            //滑动到下一个tab的偏移量
             int scrollOffset = (int) ((mNextTab.getLeft() - mScrollX - (getWidth() / 2 - mNextTab.getWidth() / 2)) * positionOffset);
-            //滚动容器
+//            //滚动容器
             this.scrollTo(mScrollX + scrollOffset, 0);
         }
     }
 
+
+    /**
+     * 判断TabTitle的位置是否在中心位置以内
+     *
+     * @param view
+     * @return
+     */
+    private boolean checkmTabTitleOffsetCenter(View view) {
+        return (view.getLeft() + view.getWidth() / 2) < getWidth() / 2;
+    }
 
     /**
      * px > sp
