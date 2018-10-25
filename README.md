@@ -1,2 +1,2 @@
 # 效果图
-![image](https://github.com/kangdongpu/TabViewPagerIndicator-master/ray/master/PagerIndicator.png)
+![image](https://github.com/kangdongpu/TabViewPagerIndicator-master/PagerIndicator.gif)
