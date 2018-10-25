@@ -1,2 +1,2 @@
-# TabViewPagerIndicator-master
-A TabViewPagerIndicator Sample
+# 效果图
+![image](https://github.com/kangdongpu/TabViewPagerIndicator-master/PagerIndicator.gif)
