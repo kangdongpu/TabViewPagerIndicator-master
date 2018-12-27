@@ -1,5 +1,5 @@
 # 效果图
-![image](https://github.com/kangdongpu/TabViewPagerIndicator-master/blob/master/PagerIndicator.gif)
 
+<img src="https://github.com/kangdongpu/TabViewPagerIndicator-master/blob/master/PagerIndicator.gif" width="375" />
      
       
